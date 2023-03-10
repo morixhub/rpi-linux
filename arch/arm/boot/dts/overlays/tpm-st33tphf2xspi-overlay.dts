@@ -1,0 +1,82 @@
+/*
+ * Device Tree overlay for the ST33TPHF2XSPI Trusted Platform Module add-on
+ * boards, which can be used as a secure key storage and hwrng.
+ */
+
+ #include <dt-bindings/pinctrl/bcm2835.h>
+ 
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&gpio>;
+		frag0: __overlay__ {
+			arsys_tpm_rst_pin: arsys_tpm_rst_pin@24 {
+				brcm,pins = <24>;
+				brcm,function = <BCM2835_FSEL_GPIO_IN>; // INPUT (that should be OUTPUT!!!)
+				brcm,pull = <BCM2835_PUD_UP>;  // UP (that should be not relevant, since it should be OUTPUT)
+				brcm,output-high; // (seems not to work on bcm2835 as explained at https://forums.raspberrypi.com/viewtopic.php?t=139560)
+			};
+		};
+	};
+	
+	fragment@1 {
+		target = <&gpio>;
+		frag1: __overlay__ {
+			arsys_tpm_misc_pin: arsys_tpm_misc_pins@25 {
+				brcm,pins = <25 26>;
+				brcm,function = <BCM2835_FSEL_GPIO_OUT>; // OUTPUT
+				brcm,pull = <BCM2835_PUD_OFF>;  // NONE
+				brcm,output-low; // (seems not to work on bcm2835 as explained at https://forums.raspberrypi.com/viewtopic.php?t=139560)
+			};
+		};
+	};
+	
+	fragment@2 {
+		target = <&gpio>;
+		frag2: __overlay__ {
+			arsys_tpm_irq_pin: arsys_tpm_irq_pins@27 {
+				brcm,pins = <27>;
+				brcm,function = <BCM2835_FSEL_GPIO_IN>;
+				brcm,pull = <BCM2835_PUD_OFF>;  // NONE
+			};
+		};
+	};
+	
+	fragment@3 {
+		target = <&spi6_cs_pins>;
+		frag3: __overlay__ {
+			brcm,pins = <18>;
+			brcm,function = <BCM2835_FSEL_ALT3>;
+		};
+	};
+	
+	fragment@4 {
+		target = <&spi6>;
+		frag4: __overlay__ {
+			/* needed to avoid dtc warning */
+			#address-cells = <1>;
+			#size-cells = <0>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&spi6_pins &spi6_cs_pins &arsys_tpm_rst_pin &arsys_tpm_misc_pin &arsys_tpm_irq_pin>;
+			status = "okay";
+			
+			st33htpm0: st33htpm@0 {
+				compatible = "st,st33htpm-spi";
+				reg = <0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				spi-max-frequency = <33000000>;
+				status = "okay";
+			};
+		};
+	};
+	
+	__overrides__ {
+		cs0_pin  = <&frag3>,"brcm,pins:0",
+			   <&frag4>,"cs-gpios:4";
+	};
+};

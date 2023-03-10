@@ -78,6 +78,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	gpio-no-irq.dtbo \
 	gpio-poweroff.dtbo \
 	gpio-shutdown.dtbo \
+	gpio-tpm-arsys.dtbo \
 	hd44780-lcd.dtbo \
 	hdmi-backlight-hwhack-gpio.dtbo \
 	hifiberry-amp.dtbo \
@@ -249,6 +250,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	tc358743-audio.dtbo \
 	tinylcd35.dtbo \
 	tpm-slb9670.dtbo \
+	tpm-st33tphf2xspi.dtbo \
 	uart0.dtbo \
 	uart1.dtbo \
 	uart2.dtbo \
