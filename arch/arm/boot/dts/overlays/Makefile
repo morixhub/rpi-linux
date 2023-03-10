@@ -78,7 +78,6 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	gpio-no-irq.dtbo \
 	gpio-poweroff.dtbo \
 	gpio-shutdown.dtbo \
-	gpio-tpm-arsys.dtbo \
 	hd44780-lcd.dtbo \
 	hdmi-backlight-hwhack-gpio.dtbo \
 	hifiberry-amp.dtbo \
