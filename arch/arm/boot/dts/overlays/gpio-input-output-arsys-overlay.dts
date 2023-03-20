@@ -1,0 +1,21 @@
+// Definitions for gpio-input-output module
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+    fragment@0 {
+        target = <&gpio>;
+        __overlay__ {
+            pinctrl-names = "default";
+            pinctrl-0 = <&my_in_out_pins>;
+
+            my_in_out_pins: my_in_out_pins {
+				brcm,pins = <6 7 10 11>; // gpio number
+				brcm,function = <1 1 1 1>; // 0 = input, 1 = output
+				brcm,pull = <2 2 1 1>; // 0 = none, 1 = pull down, 2 = pull up
+            };
+        };
+    };
+};

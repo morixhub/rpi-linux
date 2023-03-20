@@ -70,6 +70,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	googlevoicehat-soundcard.dtbo \
 	gpio-fan.dtbo \
 	gpio-hog.dtbo \
+	gpio-input-output-arsys.dtbo \
 	gpio-ir.dtbo \
 	gpio-ir-tx.dtbo \
 	gpio-key.dtbo \
@@ -251,11 +252,15 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	tpm-slb9670.dtbo \
 	tpm-st33tphf2xspi.dtbo \
 	uart0.dtbo \
+	uart0-arsys.dtbo \
 	uart1.dtbo \
 	uart2.dtbo \
 	uart3.dtbo \
+	uart3-arsys.dtbo \
 	uart4.dtbo \
+	uart4-arsys.dtbo \
 	uart5.dtbo \
+	uart5-arsys.dtbo \
 	udrc.dtbo \
 	ugreen-dabboard.dtbo \
 	upstream.dtbo \

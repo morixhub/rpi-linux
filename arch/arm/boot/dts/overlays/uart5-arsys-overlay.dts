@@ -1,0 +1,30 @@
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2711";
+
+	fragment@0 {
+		target = <&uart5>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&uart5_pins>;
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <&gpio>;
+		__overlay__ {
+			uart5_pins: uart5_pins {
+				brcm,pins = <12 13>;
+				brcm,function = <3>; /* alt4 */
+				brcm,pull = <1 1>;
+			};
+		};
+	};
+
+	__overrides__ {
+		ctsrts = <0>,"=1";
+	};
+};
